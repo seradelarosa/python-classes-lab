@@ -14,10 +14,6 @@ class Game():
             'a3': None, 'b3': None, 'c3': None,
         }
 
-    # define a play_game method 
-    def play_game(self):
-        # confirm the method is accessible on an instance of the Game class
-        print("Welcome to Tic-Tac-Toe! Let's start.")
     # method to print the current state of the board
     def print_board(self):
         b = self.board
@@ -30,6 +26,18 @@ class Game():
         3)  {b['a3'] or ' '} | {b['b3'] or ' '} | {b['c3'] or ' '}
         """)
 
+    # consolidated render method
+    def render(self):
+        self.print_board()
+        self.print_message()
+
+    # define a play_game method
+    def play_game(self):
+        # confirm the method is accessible on an instance of the Game class
+        print("Welcome to Tic-Tac-Toe! Let's start.")
+        # display the board
+        self.render()
+
     # method to print the current game status
     def print_message(self):
         if self.tie:
@@ -39,10 +47,16 @@ class Game():
         else:
             print(f"It's player {self.turn}'s turn!")
 
-     # consolidated render method
-    def render(self):
-        self.print_board()
-        self.print_message()
+    # Method to handle player input
+    def get_move(self):
+        while True:
+            move = input("Enter a valid move (example: A1): ").lower()
+            if move in self.board and self.board[move] is None:
+                return move
+            else:
+                print("Invalid move. Please try again.")
+
 
 game_instance = Game()
 game_instance.play_game()
+move = game_instance.get_move()
